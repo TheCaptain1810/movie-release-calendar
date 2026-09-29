@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import { z } from "zod";
-import { cacheMovies, CachedMovie, discoverMoviesInRange, getMovieDetails, posterUrl, searchMovies } from "../services/tmdb";
+import { cacheMovies, CachedMovie, discoverMoviesInRange, getMovieDetails, getUpcomingReRelease, posterUrl, searchMovies } from "../services/tmdb";
 
 const calendarQuerySchema = z.object({
   year: z.coerce.number().int().min(1900).max(2200),
@@ -48,7 +48,16 @@ export async function search(req: Request, res: Response) {
 
   const results = await searchMovies(query);
   const cached = await cacheMovies(results);
-  return res.json({ results: cached.map(toMovieDto) });
+  const today = todayIso();
+  // Only already-released films can have a re-release worth looking up.
+  const dtos = await Promise.all(
+    cached.map(async (movie) => {
+      const dto = toMovieDto(movie);
+      if (dto.isReleased) dto.nextReleaseDate = await getUpcomingReRelease(movie.id, today);
+      return dto;
+    })
+  );
+  return res.json({ results: dtos });
 }
 
 export async function getById(req: Request, res: Response) {
@@ -60,6 +69,10 @@ export async function getById(req: Request, res: Response) {
   return res.json(toMovieDto(cached));
 }
 
+function todayIso() {
+  return new Date().toISOString().slice(0, 10);
+}
+
 function toMovieDto(movie: CachedMovie) {
   return {
     id: movie.id,
@@ -68,5 +81,9 @@ function toMovieDto(movie: CachedMovie) {
     posterUrl: posterUrl(movie.posterPath),
     popularity: movie.popularity,
     releaseDate: movie.releaseDate,
+    // Released = primary release date is today or earlier.
+    isReleased: !!movie.releaseDate && movie.releaseDate <= todayIso(),
+    // Upcoming re-release of an already-released film (search results only).
+    nextReleaseDate: null as string | null,
   };
 }

@@ -1,8 +1,8 @@
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
-import { Button } from "@/components/ui/button";
+import { TrackButton } from "@/components/TrackButton";
 import { cn } from "@/lib/utils";
 import type { Movie } from "@/types";
-import { Bookmark, BookmarkCheck, Clapperboard } from "lucide-react";
+import { Clapperboard } from "lucide-react";
 
 interface DayDetailDialogProps {
   open: boolean;
@@ -68,22 +68,12 @@ export function DayDetailDialog({
                       {movie.overview && (
                         <p className="line-clamp-3 text-xs text-muted-foreground">{movie.overview}</p>
                       )}
-                      <Button
-                        size="sm"
-                        variant={isTracked ? "secondary" : "default"}
+                      <TrackButton
+                        movie={movie}
+                        isTracked={isTracked}
                         className="mt-1 w-fit"
-                        onClick={() => onToggleTrack(movie)}
-                      >
-                        {isTracked ? (
-                          <>
-                            <BookmarkCheck className="h-3.5 w-3.5" /> Tracked
-                          </>
-                        ) : (
-                          <>
-                            <Bookmark className="h-3.5 w-3.5" /> Track
-                          </>
-                        )}
-                      </Button>
+                        onToggle={() => onToggleTrack(movie)}
+                      />
                     </div>
                   </li>
                 );

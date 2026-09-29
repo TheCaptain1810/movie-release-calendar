@@ -5,6 +5,8 @@ export interface Movie {
   posterUrl: string | null;
   popularity: number;
   releaseDate: string | null; // YYYY-MM-DD
+  isReleased: boolean;
+  nextReleaseDate?: string | null; // scheduled re-release of an already-released film
 }
 
 export interface CalendarMonthResponse {

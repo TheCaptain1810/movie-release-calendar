@@ -63,6 +63,27 @@ export async function searchMovies(query: string): Promise<TmdbMovieSummary[]> {
   return data.results;
 }
 
+/**
+ * Earliest theatrical (type 2 limited / 3 wide) release in any country dated
+ * after `today`. For an already-released film this is how a scheduled
+ * re-release shows up on TMDB: an extra theatrical entry with a future date.
+ */
+export async function getUpcomingReRelease(id: number, today: string): Promise<string | null> {
+  try {
+    const { data } = await tmdb.get<{
+      results: { release_dates: { type: number; release_date: string }[] }[];
+    }>(`/movie/${id}/release_dates`);
+    const upcoming = data.results
+      .flatMap((c) => c.release_dates)
+      .filter((r) => (r.type === 2 || r.type === 3) && r.release_date.slice(0, 10) > today)
+      .map((r) => r.release_date.slice(0, 10))
+      .sort();
+    return upcoming[0] ?? null;
+  } catch {
+    return null;
+  }
+}
+
 export async function getMovieDetails(id: number): Promise<TmdbMovieSummary> {
   const { data } = await tmdb.get<TmdbMovieSummary>(`/movie/${id}`);
   return data;

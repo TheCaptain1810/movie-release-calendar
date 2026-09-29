@@ -2,10 +2,11 @@ import * as React from "react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
+import { ReleaseStatus, TrackButton } from "@/components/TrackButton";
 import { fetchTrackedMovies, searchMovies as searchMoviesApi, trackMovie, untrackMovie } from "@/api";
 import type { Movie } from "@/types";
 import { useAuth } from "@/hooks/useAuth";
-import { Bookmark, BookmarkCheck, Search as SearchIcon } from "lucide-react";
+import { Search as SearchIcon } from "lucide-react";
 
 export function SearchPage() {
   const { user } = useAuth();
@@ -90,18 +91,8 @@ export function SearchPage() {
               )}
               <CardContent className="flex flex-col gap-2 p-2">
                 <span className="line-clamp-2 text-xs font-medium">{movie.title}</span>
-                <span className="text-[11px] text-muted-foreground">{movie.releaseDate ?? "TBA"}</span>
-                <Button size="sm" variant={isTracked ? "secondary" : "default"} onClick={() => handleToggleTrack(movie)}>
-                  {isTracked ? (
-                    <>
-                      <BookmarkCheck className="h-3.5 w-3.5" /> Tracked
-                    </>
-                  ) : (
-                    <>
-                      <Bookmark className="h-3.5 w-3.5" /> Track
-                    </>
-                  )}
-                </Button>
+                <ReleaseStatus movie={movie} />
+                <TrackButton movie={movie} isTracked={isTracked} onToggle={() => handleToggleTrack(movie)} />
               </CardContent>
             </Card>
           );
