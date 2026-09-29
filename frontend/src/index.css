@@ -1,53 +1,77 @@
+﻿@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap");
 @import "tailwindcss";
 
+/* Design system reference: frontend/DESIGN.md */
+
 :root {
-  --background: #ffffff;
-  --foreground: #0f172a;
+  --background: #f6f5ff;
+  --foreground: #14122b;
   --card: #ffffff;
-  --card-foreground: #0f172a;
+  --card-foreground: #14122b;
   --popover: #ffffff;
-  --popover-foreground: #0f172a;
-  --primary: #4f46e5;
+  --popover-foreground: #14122b;
+  --primary: #6d4aff;
   --primary-foreground: #ffffff;
-  --secondary: #f1f5f9;
-  --secondary-foreground: #0f172a;
-  --muted: #f1f5f9;
-  --muted-foreground: #64748b;
-  --accent: #f1f5f9;
-  --accent-foreground: #0f172a;
-  --destructive: #ef4444;
+  --secondary: #eeebff;
+  --secondary-foreground: #2a2554;
+  --muted: #efedfb;
+  --muted-foreground: #6b6890;
+  --accent: #e9e5ff;
+  --accent-foreground: #14122b;
+  --destructive: #e5484d;
   --destructive-foreground: #ffffff;
-  --border: #e2e8f0;
-  --input: #e2e8f0;
-  --ring: #4f46e5;
-  --today-ring: #4f46e5;
-  --radius: 0.625rem;
+  --border: rgba(109, 74, 255, 0.14);
+  --input: rgba(109, 74, 255, 0.22);
+  --ring: #8b6bff;
+  --today-ring: #6d4aff;
+  --radius: 0.75rem;
+
+  --brand-from: #6d4aff;
+  --brand-via: #b04bf0;
+  --brand-to: #ff5fa2;
+  --surface: rgba(255, 255, 255, 0.72);
+  --surface-strong: rgba(255, 255, 255, 0.9);
+  --glow: 0 10px 30px -8px rgba(109, 74, 255, 0.45);
+  --shadow-card: 0 1px 2px rgba(20, 18, 43, 0.04), 0 12px 40px -12px rgba(109, 74, 255, 0.18);
+  --aurora-1: rgba(109, 74, 255, 0.22);
+  --aurora-2: rgba(255, 95, 162, 0.16);
+  --aurora-3: rgba(56, 189, 248, 0.16);
 }
 
 .dark {
   color-scheme: dark;
-  --background: #0b0f1a;
-  --foreground: #e6e9f2;
-  --card: #131a2a;
-  --card-foreground: #e6e9f2;
-  --popover: #131a2a;
-  --popover-foreground: #e6e9f2;
-  --primary: #818cf8;
-  --primary-foreground: #0b0f1a;
-  --secondary: #1c2540;
-  --secondary-foreground: #e6e9f2;
-  --muted: #182036;
-  --muted-foreground: #8d97b3;
-  --accent: #1f2947;
-  --accent-foreground: #e6e9f2;
-  --destructive: #f87171;
-  --destructive-foreground: #0b0f1a;
-  --border: #253052;
-  --input: #253052;
-  --ring: #818cf8;
-  --today-ring: #818cf8;
-}
+  --background: #07060f;
+  --foreground: #ecebff;
+  --card: #100e22;
+  --card-foreground: #ecebff;
+  --popover: #12102a;
+  --popover-foreground: #ecebff;
+  --primary: #8b6bff;
+  --primary-foreground: #ffffff;
+  --secondary: rgba(139, 107, 255, 0.12);
+  --secondary-foreground: #e4e1ff;
+  --muted: rgba(139, 107, 255, 0.08);
+  --muted-foreground: #9994c4;
+  --accent: rgba(139, 107, 255, 0.16);
+  --accent-foreground: #ffffff;
+  --destructive: #ff6b70;
+  --destructive-foreground: #07060f;
+  --border: rgba(160, 140, 255, 0.14);
+  --input: rgba(160, 140, 255, 0.24);
+  --ring: #a48bff;
+  --today-ring: #a48bff;
 
+  --brand-from: #7c5cff;
+  --brand-via: #c14df0;
+  --brand-to: #ff6aa8;
+  --surface: rgba(22, 19, 48, 0.6);
+  --surface-strong: rgba(22, 19, 48, 0.85);
+  --glow: 0 10px 34px -8px rgba(139, 107, 255, 0.55);
+  --shadow-card: 0 1px 0 rgba(255, 255, 255, 0.04) inset, 0 24px 60px -24px rgba(0, 0, 0, 0.7);
+  --aurora-1: rgba(124, 92, 255, 0.28);
+  --aurora-2: rgba(255, 106, 168, 0.14);
+  --aurora-3: rgba(56, 189, 248, 0.14);
+}
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
@@ -68,7 +92,14 @@
   --color-border: var(--border);
   --color-input: var(--input);
   --color-ring: var(--ring);
+  --color-brand-from: var(--brand-from);
+  --color-brand-via: var(--brand-via);
+  --color-brand-to: var(--brand-to);
+  --color-surface: var(--surface);
+  --font-sans: 'Inter', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
   --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 6px);
+  --radius-2xl: calc(var(--radius) + 12px);
   --radius-md: calc(var(--radius) - 2px);
   --radius-sm: calc(var(--radius) - 4px);
 }
@@ -76,7 +107,59 @@
 body {
   background-color: var(--background);
   color: var(--foreground);
-  font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  font-family: "Inter", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
   -webkit-font-smoothing: antialiased;
+  letter-spacing: -0.005em;
+  min-height: 100vh;
+  background-image:
+    radial-gradient(60rem 36rem at 10% -10%, var(--aurora-1), transparent 60%),
+    radial-gradient(50rem 32rem at 95% 0%, var(--aurora-2), transparent 60%),
+    radial-gradient(48rem 30rem at 50% 110%, var(--aurora-3), transparent 60%);
+  background-attachment: fixed;
   transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+::selection { background: rgba(139, 107, 255, 0.35); }
+
+/* ---- Design-system utilities (see DESIGN.md) ---- */
+.bg-brand-gradient {
+  background-image: linear-gradient(135deg, var(--brand-from), var(--brand-via) 55%, var(--brand-to));
+}
+.text-brand-gradient {
+  background-image: linear-gradient(135deg, var(--brand-from), var(--brand-via) 55%, var(--brand-to));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+.glass {
+  background: var(--surface);
+  backdrop-filter: blur(18px) saturate(140%);
+  -webkit-backdrop-filter: blur(18px) saturate(140%);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow-card);
+}
+.shadow-glow { box-shadow: var(--glow); }
+/* Parent must be positioned (relative/fixed/absolute) — not set here so it can't override Tailwind's `fixed`. */
+.gradient-border::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  padding: 1px;
+  border-radius: inherit;
+  background: linear-gradient(135deg, var(--brand-from), var(--brand-via), var(--brand-to));
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+}
+
+@keyframes rise-in {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: none; }
+}
+.animate-rise { animation: rise-in 0.45s cubic-bezier(0.2, 0.7, 0.2, 1) both; }
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-rise { animation: none; }
+  * { transition-duration: 0.01ms !important; }
 }

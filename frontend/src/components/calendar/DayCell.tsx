@@ -25,14 +25,15 @@ export function DayCell({ date, isCurrentMonth, isToday, movies, trackedIds, onC
     <button
       onClick={onClick}
       className={cn(
-        "group flex min-h-[132px] flex-col gap-1.5 border-b border-r border-border p-2 text-left align-top transition-colors hover:bg-accent/60 focus-visible:z-10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-ring",
-        !isCurrentMonth && "bg-muted/40 text-muted-foreground"
+        "group flex min-h-[132px] xl:min-h-[150px] flex-col gap-1.5 border-b border-r border-border p-2 text-left align-top transition-colors hover:bg-gradient-to-br hover:from-primary/10 hover:to-transparent focus-visible:z-10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-ring",
+        !isCurrentMonth && "bg-muted/30 text-muted-foreground/70",
+        isToday && "bg-gradient-to-br from-primary/15 via-transparent to-transparent"
       )}
     >
       <span
         className={cn(
-          "flex h-6 w-6 items-center justify-center rounded-full text-xs font-medium",
-          isToday && "bg-primary font-semibold text-primary-foreground shadow-sm"
+          "flex h-7 w-7 items-center justify-center rounded-full text-xs font-semibold",
+          isToday && "bg-brand-gradient text-white shadow-glow"
         )}
       >
         {date.getUTCDate()}
@@ -46,9 +47,9 @@ export function DayCell({ date, isCurrentMonth, isToday, movies, trackedIds, onC
               key={movie.id}
               title={movie.title}
               className={cn(
-                "flex min-w-0 items-center gap-1.5 rounded-md p-0.5 pr-1.5 text-[11px] font-medium leading-tight",
+                "relative flex min-w-0 items-center gap-1.5 rounded-lg p-0.5 pr-1.5 text-[11px] font-medium leading-tight transition-transform duration-200 group-hover:translate-x-0.5",
                 isTracked
-                  ? "bg-primary/15 text-foreground ring-1 ring-primary/40"
+                  ? "gradient-border bg-gradient-to-r from-primary/25 to-brand-to/15 text-foreground"
                   : "bg-secondary text-secondary-foreground",
                 !isCurrentMonth && "opacity-70"
               )}
@@ -58,7 +59,7 @@ export function DayCell({ date, isCurrentMonth, isToday, movies, trackedIds, onC
                   src={movie.posterUrl}
                   alt=""
                   loading="lazy"
-                  className="h-8 w-[22px] flex-shrink-0 rounded-[3px] object-cover"
+                  className="h-8 w-[22px] flex-shrink-0 rounded-md object-cover shadow-sm"
                 />
               ) : (
                 <div className="h-8 w-[22px] flex-shrink-0 rounded-[3px] bg-muted" />

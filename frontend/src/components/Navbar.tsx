@@ -7,8 +7,10 @@ import { CalendarDays, Film, Moon, Search, Settings, Sun } from "lucide-react";
 
 const navLinkClass = ({ isActive }: { isActive: boolean }) =>
   cn(
-    "inline-flex h-8 items-center gap-1.5 rounded-md px-2.5 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground",
-    isActive ? "bg-accent text-accent-foreground" : "text-muted-foreground"
+    "inline-flex h-9 items-center gap-1.5 rounded-full px-3.5 text-sm font-medium transition-all hover:bg-accent hover:text-accent-foreground",
+    isActive
+      ? "bg-accent text-accent-foreground ring-1 ring-primary/40 shadow-[0_0_20px_-6px_var(--primary)]"
+      : "text-muted-foreground"
   );
 
 export function Navbar() {
@@ -17,13 +19,15 @@ export function Navbar() {
   const navigate = useNavigate();
 
   return (
-    <header className="sticky top-0 z-40 border-b border-border bg-background/80 backdrop-blur supports-[backdrop-filter]:bg-background/70">
-      <div className="mx-auto flex max-w-5xl items-center justify-between gap-2 px-4 py-2.5 sm:px-6">
-        <Link to="/" className="flex items-center gap-2 font-semibold tracking-tight">
-          <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary text-primary-foreground">
+    <header className="sticky top-0 z-40 px-3 pt-3 sm:px-8">
+      <div className="glass mx-auto flex max-w-[1800px] items-center justify-between gap-2 rounded-2xl px-3 py-2 sm:px-4">
+        <Link to="/" className="flex items-center gap-2.5 font-bold tracking-tight">
+          <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-brand-gradient text-white shadow-glow">
             <Film className="h-4 w-4" />
           </span>
-          <span className="hidden sm:inline">Release Calendar</span>
+          <span className="hidden text-base sm:inline">
+            Release <span className="text-brand-gradient">Calendar</span>
+          </span>
         </Link>
 
         <nav className="flex items-center gap-1">

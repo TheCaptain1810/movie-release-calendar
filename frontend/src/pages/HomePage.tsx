@@ -92,12 +92,16 @@ export function HomePage() {
   }
 
   return (
-    <div className="mx-auto flex max-w-5xl flex-col gap-4 p-4 sm:p-6">
-      <div className="flex items-center justify-between">
-        <h1 className="text-2xl font-semibold tracking-tight">
-          {MONTH_LABELS[month - 1]} <span className="font-normal text-muted-foreground">{year}</span>
-        </h1>
-        <div className="flex items-center gap-1">
+    <div className="mx-auto flex max-w-[1800px] flex-col gap-4 p-4 sm:px-8 sm:py-6">
+      <div className="flex items-end justify-between">
+        <div className="flex flex-col gap-1">
+          <span className="text-[11px] font-bold uppercase tracking-[0.2em] text-muted-foreground">Movie releases</span>
+          <h1 className="text-3xl font-extrabold tracking-tight sm:text-4xl">
+            <span className="text-brand-gradient">{MONTH_LABELS[month - 1]}</span>{" "}
+            <span className="font-light text-muted-foreground">{year}</span>
+          </h1>
+        </div>
+        <div className="flex items-center gap-1.5">
           <Button variant="outline" size="icon" onClick={() => goToMonth(-1)} aria-label="Previous month">
             <ChevronLeft className="h-4 w-4" />
           </Button>

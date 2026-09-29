@@ -45,12 +45,12 @@ export function MonthView({ year, month, days, trackedIds, onSelectDay }: MonthV
   return (
     <>
       {/* Desktop / tablet grid */}
-      <div className="hidden overflow-hidden rounded-xl border border-border bg-card shadow-sm sm:block">
-        <div className="grid grid-cols-7 border-b border-border bg-muted/50">
+      <div className="hidden overflow-hidden rounded-2xl glass animate-rise sm:block">
+        <div className="grid grid-cols-7 border-b border-border bg-gradient-to-r from-primary/10 via-brand-via/5 to-brand-to/10">
           {WEEKDAY_LABELS.map((label) => (
             <div
               key={label}
-              className="p-2 text-center text-[11px] font-semibold uppercase tracking-wide text-muted-foreground"
+              className="p-3 text-center text-[11px] font-bold uppercase tracking-[0.14em] text-muted-foreground"
             >
               {label}
             </div>
@@ -92,12 +92,12 @@ export function MonthView({ year, month, days, trackedIds, onSelectDay }: MonthV
               <button
                 key={key}
                 onClick={() => onSelectDay(key, movies)}
-                className="flex gap-3 rounded-xl border border-border bg-card p-3 text-left shadow-sm transition-colors active:bg-accent"
+                className="flex gap-3 glass rounded-2xl p-3 text-left transition-all active:scale-[0.99]"
               >
                 <div
                   className={cn(
                     "flex h-14 w-12 flex-shrink-0 flex-col items-center justify-center rounded-lg",
-                    isToday ? "bg-primary text-primary-foreground" : "bg-secondary text-secondary-foreground"
+                    isToday ? "bg-brand-gradient text-white shadow-glow" : "bg-secondary text-secondary-foreground"
                   )}
                 >
                   <span className="text-[10px] font-semibold uppercase">{WEEKDAY_LABELS[date.getUTCDay()]}</span>
